@@ -1,0 +1,56 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+		<header class="jumbotron jum-style">
+			<h2>
+				INPUT NEW REPORT
+			</h2>
+			<p>
+				We currently have <%= count %> <%= rep %> in the Database.....
+			</p>
+		</header>
+        
+        <div class="form-style cent">
+            <form action="/add_rep" method="POST">
+				<div class="form-group">
+                   	<input class="form-control" type="number" name="cusid" placeholder="Customer Id" required="required">
+                </div>
+				<div class="form-group">
+                   	<input class="form-control" type="text" name="macid" placeholder="Machine Id" required="required">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="srno" placeholder="Service Report Number">
+                </div>
+                <div class="form-group">
+					<label for="rdte" class="mach_font">Report Date</label>
+                    <input class="form-control" type="date" name="rdte">
+                </div>
+				<div class="form-group">
+                	<input class="form-control" type="number" name="machr" placeholder="Machine Hours">
+                </div>
+                <div class="form-group">
+					<input class="form-control" type="text" name="egnr" placeholder="Engineer Name">
+                </div>
+				<div class="form-group">
+        	        <input class="form-control" type="text" name="rstat" placeholder="Request Status">
+                </div>
+				<div class="form-group">
+					<label for="desc" class="mach_font">Error</label>
+					<textarea class="form-control" rows="4" col="30" name="desc"></textarea>
+                </div>
+				<div class="form-group">
+					<label for="enote" class="mach_font">Solution</label>
+					<textarea class="form-control" rows="4" col="30" name="enote"></textarea>
+                </div>
+                <div class="form-group">
+                   	<button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/show" class="btn btn-warning">Back</a>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>

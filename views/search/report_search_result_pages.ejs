@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+
+<div class="container ser-div">
+	<h1> <%= machine %> </h1>
+	<table class="table table-hover" id="tbl">
+		<tr id="table-head">
+			<th>SERIAL NUMBER</th>
+			<th>EC</th>
+			<th>OPERATING HOURS</th>
+			<th>ERROR</th>
+			<th>ENGINEER</th>
+			<th>INSTALLATION DATE</th>
+			<th>SOLUTION</th>
+		</tr>
+		<% reports.forEach(function(report){ %>
+		<tr id="table-data">
+			<td class="sN"><a href="#"> <%= report.serial_no %> </a></td>
+			<td class="eC"><a href="#" id="srno"> <%= report.ec %> </a></td>
+			<td class="oH"><a href="#"> <%= report.operating_hours %> </a></td>
+			<td class="dE"><a href="#" id="srno"> <%= report.description %> </a></td>
+			<td class="eG"><a href="#"> <%= report.engineer %> </a></td>
+			<td class="iN"><a href="#" id="srno"> <%= report.installation_date %> </a></td>
+			<td class="eNo"><a href="#"> <%= report.extra_notes %> </a></td>
+		</tr>
+		<% }) %>
+	</table>
+
+<a href="/search" class="btn btn-warning">Back</a>
+</div>
+<% include ../partials/footer %>

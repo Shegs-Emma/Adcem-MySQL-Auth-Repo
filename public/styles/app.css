@@ -1,0 +1,158 @@
+/* =====================================HEADER RELATED STYLES================================================ */
+body{
+	background: #E0EAFC;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#trolley{
+	font-family: 'Raleway', sans-serif;
+	color: #03a1fc;
+}
+
+.flash-div{
+	height: 0.5em;
+	width: 100%;
+}
+
+.flash-div h6{
+	position: relative;
+	top: -15px;
+}
+
+.adcem-img{
+	height: 50px;
+	width: 100px;
+	position: relative;
+	top: -15px;
+}
+
+/* =====================================	RELATED STYLES================================================ */
+
+.cent{
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.centL{
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.jumbotron h2{
+	text-align: center;
+	font-family: 'Lexend Tera', sans-serif;
+	color: #03a1fc;
+}
+
+.jumbotron p{
+	text-align: center;
+	font-family: 'Livvic', sans-serif;
+	color: #03a1fc;
+}
+
+.row h2{
+	text-align: center;
+	font-family: 'Livvic', sans-serif;
+	color: #03a1fc;
+}
+
+.jum-style{
+	width: 90%;
+	margin: 0 auto;
+}
+
+.mach_font{
+	color: #03a1fc;
+}
+
+label{
+	color: #03a1fc;
+	font-family: 'Livvic', sans-serif;
+}
+/* =====================================SEARCH RELATED STYLES================================================ */
+
+.sear-sty{
+	position: relative;
+	height: 4em;
+	width: 10em;
+}
+
+#search{
+	position: relative;
+	height: 4em;
+	width: 50em;
+}
+
+.centS{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-content: center;
+}
+
+.posit{
+	display: flex;
+	height: 500px;
+	/* justify-content: center;
+	align-content: center;  */
+}
+
+.ser-div{
+	background-color: whitesmoke;
+	padding: 30px 20px; 
+	text-align: center;
+}
+
+.ser-div h1{
+	font-family: 'Livvic', sans-serif;
+	color: #03a1fc;
+	margin-bottom: 50px;
+}
+
+.ser-div th{
+	text-align: center;
+	font-family: 'Livvic', sans-serif;
+	color: #03a1fc;
+}
+
+.ser-div td{
+	text-align: center;
+	font-family: 'Livvic', sans-serif;
+}
+
+.ser-div a{
+	text-decoration: none;
+}
+
+#form-id{
+	display: none;
+}
+
+#form-id2{
+	display: none;
+}
+
+/* ========================================= Background Images Styles ================================================ */
+body{
+
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-image:url(images/photo4.jpg);
+}
+
+
+/* #register{
+	position: absolute;
+	width: 100%;
+	height: 92.3%;
+	top: 50px;
+	padding-top: 30px;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-image:url(images/photo4.jpg);
+} */

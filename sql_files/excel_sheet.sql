@@ -61,4 +61,16 @@
 # ON machines.serial_no = reports.machine_id
 # WHERE machines.serial_no = '144S1226';
 
-SELECT DATE_FORMAT(installation_date, "%M, %d %Y.") FROM machines;
+# SELECT DATE_FORMAT(installation_date, "%M, %d %Y.") FROM machines;
+
+SELECT
+	c.id,
+	hospital_name,
+	c.region,
+	m.device_type,
+	COUNT(device_type)
+FROM customers c
+INNER JOIN machines m
+ON c.id = m.customer_id
+GROUP BY hospital_name, device_type
+ORDER BY c.id LIMIT 10;

@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+
+<div class="container ser-div">
+	<h1>  </h1>
+	<table class="table table-hover" id="tbl">
+		<tr id="table-head horf">
+			<th class="genInfoC">ID</th>
+			<th class="genInfoC">HOSPITAL NAME</th>
+			<th class="genInfoC">REGION</th>
+			<th class="genInfoC">4008B</th>
+			<th class="genInfoC">4008S</th>
+			<th class="genInfoC">4008B CLASSIC</th>
+			<th class="genInfoC">5008S</th>
+			<th class="genInfoC">PD NIGHT</th>
+			<th class="genInfoC">MULTIFILT</th>
+			<th class="genInfoC">OTHERS</th>
+			<th class="genInfoC">TOTAL</th>
+		</tr>
+		
+		<% newArr.forEach(function(theArr){ %>
+		<tr id="table-data">
+			<td> <%= theArr.id %></td>
+			<td> <%= theArr.hospital_name %> </td>
+			<td><%= theArr.region %></td>
+			<td> <%= theArr.device_type %> </td>
+			<td> <%= theArr.count %> </td>
+			
+		</tr>
+		<% }) %>
+	</table>
+
+<a href="/search" class="btn btn-warning">Back</a>
+</div>
+<% include ../partials/footer %>

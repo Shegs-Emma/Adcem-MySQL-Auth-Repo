@@ -77,3 +77,16 @@ machineDevType.forEach(function(mac){
 		newForm2.submit();
 	});
 });
+
+// ========================================TESTING FOR THE GENERALS==================================================
+var genInfo = document.querySelector('#horf');
+
+genInfo.addEventListener('click', ()=>{
+	alert(genInfo.innerHTML);
+});
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   console.log(genInfo.innerHTML);
+// });
+

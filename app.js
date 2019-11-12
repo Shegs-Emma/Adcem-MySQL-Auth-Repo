@@ -12,6 +12,7 @@ const customerRoutes	= require("./routes/customers"),
 	  machineRoutes		= require("./routes/machines"),
 	  reportRoutes		= require("./routes/reports"),
 	  searchRoutes		= require("./routes/search"),
+	  generalRoutes		= require("./routes/general"),
 	  indexRoutes		= require("./routes/index");
 //=================================================================================
 //The MySQL Database Setup
@@ -62,7 +63,7 @@ app.use(customerRoutes);
 app.use(reportRoutes);
 app.use(machineRoutes);
 app.use(searchRoutes);
-
+app.use(generalRoutes);
 
 
 

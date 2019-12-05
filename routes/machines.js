@@ -1,5 +1,6 @@
 const express					= require("express"),
 	  router					= express.Router(),
+	  auth          			= require('../middleware/auth'),
 	  mysql						= require("mysql");
 
 const connection = mysql.createConnection({
@@ -11,7 +12,7 @@ const connection = mysql.createConnection({
 //==========================================================================================
 //This route goes to the Machine inclusion page
 //==========================================================================================
-router.get("/add_mac", isLoggedIn,(req, res) => {
+router.get("/add_mac", auth,(req, res) => {
 	const m = 'SELECT COUNT(*) AS count FROM machines';
 	
 	connection.query(m, (err, results) => {
@@ -23,7 +24,7 @@ router.get("/add_mac", isLoggedIn,(req, res) => {
 	});
 });
 
-router.post("/add_mac", isLoggedIn,(req, res) => {
+router.post("/add_mac", auth,(req, res) => {
 	const machine = {
 		serial_no: req.body.slno,
 		device_type: req.body.dtype,
@@ -44,12 +45,5 @@ router.post("/add_mac", isLoggedIn,(req, res) => {
 });
 
 
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	req.flash("error", "Please Login first!");
-	res.redirect("/login");
-};
 
 module.exports = router;

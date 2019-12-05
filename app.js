@@ -2,11 +2,13 @@ const express 			= require("express"),
 	  app				= express(),
 	  mysql				= require("mysql"),
 	  bodyParser		= require("body-parser"),
-	  flash				= require("connect-flash"),
-	  mongoose			= require("mongoose"),
-	  passport			= require("passport"),
-	  LocalStrategy		= require("passport-local"),
-	  User				= require("./models/users");
+	  session			= require("express-session"),
+	  cookieParser		= require("cookie-parser"),
+	  flash				= require("connect-flash");
+	  // mongoose			= require("mongoose"),
+	  // passport			= require("passport"),
+	  // LocalStrategy		= require("passport-local"),
+	  // User				= require("./models/users");
 	  
 const customerRoutes	= require("./routes/customers"),
 	  machineRoutes		= require("./routes/machines"),
@@ -27,25 +29,33 @@ const connection = mysql.createConnection({
 //=================================================================================
 //The Mongoose Database Setup
 //=================================================================================
-mongoose.connect('mongodb://localhost:27017/adcem_users', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost:27017/adcem_users', { useNewUrlParser: true });
 //=================================================================================
 //PASSPORT configurations
 //=================================================================================
-app.use(require("express-session")({
-	secret: "Adcem offical DBMS",
-	resave: false,
-	saveUninitialized: false
+// app.use(require("express-session")({
+// 	secret: "Adcem offical DBMS",
+// 	resave: false,
+// 	saveUninitialized: false
+// }));
+app.use(session({
+  secret: 'Adcem official DBMS',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
 }));
 
+app.use(cookieParser());
+
 app.use(flash());//Always declare the function before you use it sir..
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-	res.locals.currentUser = req.user;
+	res.locals.currentUser = req.session.user;
 	res.locals.error = req.flash("error");
 	res.locals.success = req.flash("success");
 	next();
@@ -56,6 +66,7 @@ app.use((req, res, next) => {
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 //=================================================================================
 app.use(indexRoutes);

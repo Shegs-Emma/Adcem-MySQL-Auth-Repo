@@ -13,8 +13,8 @@
 			<th class="genInfoC">5008S</th>
 			<th class="genInfoC">PD NIGHT</th>
 			<th class="genInfoC">MULTIFILT</th>
-			<th class="genInfoC">OTHERS</th>
-			<th class="genInfoC">TOTAL</th>
+			
+			<!-- <th class="genInfoC">TOTAL</th> -->
 		</tr>
 		
 		<% newArr.forEach(function(theArr){ %>
@@ -22,11 +22,59 @@
 			<td> <%= theArr.id %></td>
 			<td> <%= theArr.hospital_name %> </td>
 			<td><%= theArr.region %></td>
-			<td> <%= theArr.device_type %> </td>
-			<td> <%= theArr.count %> </td>
+			<td class="4008B"><%= typeof theArr.device_type === 'object' && theArr.device_type['4008B'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[0] && theArr.device_type[0]['4008B'] ? 
+					Object.values(theArr.device_type[0]) :
+					0
+			%></td>
+			<td class="4008S"><%= typeof theArr.device_type === 'object' && theArr.device_type['4008S'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[1] && theArr.device_type[1]['4008S'] ? 
+					Object.values(theArr.device_type[1]) :
+					0
+			%></td>
+			<td class="AQUAWTU"><%= typeof theArr.device_type === 'object' && theArr.device_type['AQUA WTU 250'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[1] && theArr.device_type[1]['AQUA WTU 250'] ? 
+					Object.values(theArr.device_type[1]) :
+					0
+			%></td>
+			<td class="5008S"><%= typeof theArr.device_type === 'object' && theArr.device_type['5008S'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[1] && theArr.device_type[1]['5008S'] ? 
+					Object.values(theArr.device_type[1]) :
+					0
+			%></td>
+			<td class="PDNIGHT"><%= typeof theArr.device_type === 'object' && theArr.device_type['PD NIGHT'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[1] && theArr.device_type[1]['PD NIGHT'] ? 
+					Object.values(theArr.device_type[1]) :
+					0
+			%></td>
+			<td class="MULTIFIT"><%= typeof theArr.device_type === 'object' && theArr.device_type['MULTIFILT'] ?
+					Object.values(theArr.device_type) : 
+					theArr.device_type[1] && theArr.device_type[1]['MULTIFILT'] ? 
+					Object.values(theArr.device_type[1]) :
+					0
+			%></td>
 			
 		</tr>
 		<% }) %>
+		
+		<!-- <tfoot>
+			<tr class="genInfoC">
+				<th class="myTotals">TOTAL</th>
+				<td class="myTotals"><button class="btn btn-info calcu"> Calculate </button> </td>
+				<td class="myTotals"> </td>
+				<td class="4008BTot">Nothing is here</td>
+				<td class="myTotals">Nothing is here</td>
+				<td class="myTotals">Nothing is here</td>
+				<td class="myTotals">Nothing is here</td>
+				<td class="myTotals">Nothing is here</td>
+				<td class="myTotals">Nothing is here</td>
+			</tr>
+		</tfoot> -->
 	</table>
 
 <a href="/search" class="btn btn-warning">Back</a>

@@ -1,7 +1,16 @@
 const express					= require("express"),
-	  router					= express.Router(),
-	  User						= require("../models/users"),
-	  passport					= require("passport");
+	  bcrypt					= require("bcrypt"),
+	  jwt						= require("jsonwebtoken"),
+	  mysql						= require("mysql"),
+	  cookieParser				= require("cookie-parser"),
+	  router					= express.Router();
+
+const connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: process.env.MYSQL_PW,
+	database: 'adcemdb'
+});
 //=================================================================================
 //These routes goes to the landing and home pages
 //=================================================================================
@@ -24,25 +33,41 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-	const newUser = new User({
-		firstName: req.body.fname,
-		lastName: req.body.lname,
-		username: req.body.username,
-		email: req.body.email,
-	});
-	if(req.body.adminCode === "info_techEmma"){
-		newUser.isAdmin = true;
+	const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const uname = req.body.username;
+	let isAdmin = false;
+    const password = req.body.password;
+	if(req.body.adminCode === "info_techEmma" || req.body.adminCode === "2792"){
+		isAdmin = true;
 	}
-	User.register(newUser, req.body.password, (err, user) => {
-		if(err){
-			req.flash("error", err.message);
-			return res.render("register");
-		}
-		passport.authenticate("local")(req, res, ()=>{
-			req.flash("success", `Welcome ${user.username}`);
-			res.redirect("/show");
+	
+
+    bcrypt.hash(password, 10).then((hash)=>{
+        const user = {
+			firstName: fname,
+			lastName: lname,
+			userName: uname,
+			email: email,
+			password: hash,
+			isAdmin: isAdmin
+		};
+
+		connection.query('INSERT INTO users SET ?', user, (err, result) => {
+			if(err){
+				req.flash("error", err.message);
+				return res.render("register");
+			}
+			// req.flash("success", `Welcome ${req.body.username}`);
+			res.redirect("/login")
 		});
-	});
+    }).catch((error)=>{
+		console.log(error);
+        res.status(500).json({
+            error: error
+        });
+    });
 });
 
 
@@ -51,18 +76,71 @@ router.get("/login", (req, res) => {
 	res.render("login");
 });
 
-router.post("/login", passport.authenticate("local", {
-	successRedirect: "/show",
-	failureRedirect: "/login"
-}),(req, res) => {});
+
+router.post("/login", (req, res) => {
+	let message = '';
+	let sess = req.session;
+	
+	if(req.method == 'POST'){
+		let post = req.body;
+		let name = post.username;
+		let pass = post.password;
+		
+		const query = `SELECT * FROM users WHERE userName = '${name}'`;
+		
+		connection.query(query, (err, results) => {
+			
+			if(results.length){
+				sess.userId = results[0].id;
+				sess.user = results[0];
+				
+				bcrypt.compare(pass, sess.user.password).then(
+					(valid)=>{
+						if(!valid){
+							return res.status(401).json({
+								error: new Error('Incorrect password')
+							});
+						}
+						const token = jwt.sign(
+							{userId: sess.user.id},
+							'RANDOM_TOKEN_SECRET',
+							{expiresIn: '24h'}
+						);
+						
+						res.cookie("auth", token);
+						res.cookie("userData", sess.user);
+						// res.status(200).json({
+						// 	userId: sess.user.id,
+						// 	token: token
+						// });
+						req.flash("success", `Welcome ${req.body.username}`);
+						res.redirect("/show");
+						
+					}
+				).catch((error)=>{
+					console.log(error);
+					res.status(500).json({
+						error: "Here two"
+					});
+					res.redirect("/show");
+				});
+			}
+		});
+	}
+});
 
 
 
 //LOGOUT ROUTE
 router.get("/logout", (req, res) => {
-	req.logout();
-	req.flash("success", "Logged you out..");
-	res.redirect("/show");
+	let sess = req.session.user;
+	if(sess){
+		req.session.user = null;
+		req.flash("success", "Logged you out..");
+		res.clearCookie("auth");
+		res.clearCookie("userData");
+		res.redirect("/show");
+	}
 });
 
 

@@ -1,5 +1,6 @@
 const express					= require("express"),
 	  router					= express.Router(),
+	  auth          			= require('../middleware/auth'),
 	  mysql						= require("mysql");
 
 
@@ -12,19 +13,25 @@ const connection = mysql.createConnection({
 //=================================================================================
 //This route goes to the customer inclusion page
 //=================================================================================
-router.get("/add_cus", isLoggedIn,(req, res) => {
+router.get("/add_cus", auth, (req, res, next) => {
 	const c = 'SELECT COUNT(*) AS count FROM customers';
 	
 	connection.query(c, (err, results) => {
-		if(err) throw err;
-		const count = results[0].count;
+		// console.log(results);
+		if(results.length){
+			const count = results[0].count;
 		
-		let cus = (count <= 1) ? "customer" : "customers" ;
-		res.render("tables/customers", {count: count, cus: cus});
+			let cus = (count <= 1) ? "customer" : "customers" ;
+			res.render("tables/customers", {count: count, cus: cus});
+		} else{
+			console.log(err);
+		}
+		// if(err) throw err;
+		
 	});
 });
 
-router.post("/add_cus", isLoggedIn,(req, res) => {
+router.post("/add_cus", auth, (req, res) => {
 	const customer = {
 		hospital_name: req.body.name,
 		hospital_addr: req.body.addr,
@@ -39,14 +46,6 @@ router.post("/add_cus", isLoggedIn,(req, res) => {
 	});
 });
 
-
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	req.flash("error", "You need to be logged in to do that!");
-	res.redirect("/login");
-};
 
 
 module.exports = router;

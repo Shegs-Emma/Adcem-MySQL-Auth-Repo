@@ -3,6 +3,7 @@ const searchLinksName = document.querySelectorAll('.hosp_name');
 
 const machineDevType = document.querySelectorAll('.serialN');
 
+
 /*for loop was terrible. The forEach loop was fantastic in doing the job.*/
 
 /*=================================GIVE THE FORM AN ID AND GIVE IT A STYLE DISPLAY OF NONE==============================*/
@@ -79,11 +80,88 @@ machineDevType.forEach(function(mac){
 });
 
 // ========================================TESTING FOR THE GENERALS==================================================
-var genInfo = document.querySelector('#horf');
+// const clicka = document.querySelector('.calcu');
 
-genInfo.addEventListener('click', ()=>{
-	alert(genInfo.innerHTML);
-});
+// clicka.addEventListener('click', ()=>{
+// 	const container = document.querySelector('#table-data');
+// 	const col1 = container.querySelectorAll('td.4008B');
+// });
+// var genInfo = document.querySelector('#horf');
+
+// document.addEventListener("DOMContentLoaded", function(){
+//     const col1 = document.querySelectorAll('.4008B');
+// });
+
+// function getCols(){
+// 	return new Promise ((resolve, reject)=>{
+// 		setTimeout(()=>{
+// 			document.querySelectorAll('.4008B');
+// 		}, 3000);
+// 	});
+// };
+
+// window.addEventListener('DOMContentLoaded', (event) => {
+// 	async function pickCol(){
+// 		const col1 = getCols();
+// 	}
+//     pickCol();
+// });
+
+// function getCols(){
+// 	return new Promise((resolve, reject)=>{
+// 		setTimeout(()=>{
+// 			document.addEventListener('DOMContentLoaded', (event)=>{
+// 				console.log('working');
+// 			});
+// 		}, 1000);
+// 	})
+// }
+
+// async function start(){
+// 	const start1 = getCols();
+// 	const col1 = await start1;
+// 	col1 = document.querySelectorAll(".4008B");
+	
+// 	col1.forEach(function(col1a){
+// 		col1a.addEventListener('click', ()=>{
+// 			alert(col1a.textContent);
+// 		})
+// 	})
+// }
+
+// document.addEventListener('DOMContentLoaded', (event)=>{
+// 	start();
+// });
+
+
+// document.addEventListener('DOMContentLoaded', (event) => {
+	
+// 	setTimeout(()=>{
+// 		document.querySelectorAll(".4008B");	
+// 	}, 5000);
+	
+// });
+
+
+
+// col1.forEach(function(colA){
+// 	colA.addEventListener('click', ()=>{
+// 		alert(colA.textContent);
+// 	})
+// });
+
+// const total1 = document.querySelector('.4008BTot');
+
+
+	
+// 	let sum = 0;
+	
+// 	window.addEventListener('load', ()=>{
+// 		alert('working');
+// 		// sum += col.textContent;
+// 		// total1.textContent = sum;
+// 	})
+// })
 
 
 // document.addEventListener("DOMContentLoaded", function() {

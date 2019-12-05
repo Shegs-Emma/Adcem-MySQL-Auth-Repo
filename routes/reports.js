@@ -1,5 +1,6 @@
 const express					= require("express"),
 	  router					= express.Router(),
+	  auth          			= require('../middleware/auth'),
 	  mysql						= require("mysql");
 
 
@@ -14,7 +15,7 @@ const connection = mysql.createConnection({
 //==========================================================================================
 //This route goes to the Report inclusion page
 //==========================================================================================
-router.get("/add_rep", isLoggedIn, (req, res) => {
+router.get("/add_rep", auth, (req, res) => {
 	const p = 'SELECT COUNT(*) AS count FROM reports';
 	
 	connection.query(p, (err, results) => {
@@ -26,7 +27,7 @@ router.get("/add_rep", isLoggedIn, (req, res) => {
 	});
 });
 
-router.post("/add_rep", isLoggedIn,(req, res) => {
+router.post("/add_rep", auth,(req, res) => {
 	const report = {
 		customer_id: req.body.cusid,
 		machine_id: req.body.macid,
@@ -48,12 +49,4 @@ router.post("/add_rep", isLoggedIn,(req, res) => {
 
 
 
-
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	req.flash("error", "Please Login first!");
-	res.redirect("/login");
-};
 module.exports = router;

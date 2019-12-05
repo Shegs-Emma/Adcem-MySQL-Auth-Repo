@@ -1,5 +1,6 @@
 const express					= require("express"),
 	  router					= express.Router(),
+	  auth          			= require('../middleware/auth'),
 	  mysql						= require("mysql");
 
 
@@ -14,12 +15,12 @@ const connection = mysql.createConnection({
 
 
 //SEARCH ROUTE
-router.get("/search", isLoggedIn, (req, res) => {
+router.get("/search", auth, (req, res) => {
 	res.render("search/search");
 });
 
 
-router.get("/search_results", isLoggedIn, (req, res) => {
+router.get("/search_results", auth, (req, res) => {
 	
 	const { search } = req.query;
 	const s = `SELECT * FROM customers WHERE hospital_name LIKE '%${search}%'`;
@@ -40,7 +41,7 @@ router.get("/search_results", isLoggedIn, (req, res) => {
 	});
 });
 
-router.get("/search_results_mac", isLoggedIn, (req, res) => {
+router.get("/search_results_mac", auth, (req, res) => {
 	const { hosp_name } = req.query;
 
 	const m = `SELECT 
@@ -68,7 +69,7 @@ router.get("/search_results_mac", isLoggedIn, (req, res) => {
 });
 
 
-router.get("/search_results_rep", isLoggedIn, (req, res) => {
+router.get("/search_results_rep", auth, (req, res) => {
 	
 	const { mac_name } = req.query;
 
@@ -100,12 +101,5 @@ router.get("/search_results_rep", isLoggedIn, (req, res) => {
 });
 
 
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	req.flash("error", "Please Login first!");
-	res.redirect("/login");
-};
 
 module.exports = router;

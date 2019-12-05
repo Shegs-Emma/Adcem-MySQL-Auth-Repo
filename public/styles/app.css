@@ -6,9 +6,10 @@ body{
 }
 
 #trolley{
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Lexend Tera', sans-serif;
 	color: #03a1fc;
 }
+
 
 .flash-div{
 	height: 0.5em;
@@ -156,3 +157,21 @@ body{
     background-position: center center;
     background-image:url(images/photo4.jpg);
 } */
+
+/* ================================================== Home Styles =================================================== */
+
+.home{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.space{
+	margin-top: 100px;
+	padding: 20px 10px 5px 10px;
+	height: 100px;
+	width: 200px;
+	text-align: center;
+	font-family: 'Livvic', sans-serif;
+	font-size: 30px;
+}

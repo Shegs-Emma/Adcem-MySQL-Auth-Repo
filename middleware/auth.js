@@ -24,7 +24,7 @@ module.exports = (req, res, next)=>{
 			return res.redirect('/show');
         }
     }catch(err){
-		req.flash("error", 'You need to Log in first');
+		req.flash("error", 'Access Denied');
 		res.redirect('/login');
         // res.status(401).json({
         //     error: new Error('Invalid request!')

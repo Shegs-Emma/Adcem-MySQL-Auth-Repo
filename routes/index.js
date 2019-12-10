@@ -107,8 +107,8 @@ router.post("/login", (req, res) => {
 							{expiresIn: '24h'}
 						);
 						
-						res.cookie("auth", token);
-						res.cookie("userData", sess.user);
+						res.cookie("auth", token, {expire: 4000 + Date.now()});
+						res.cookie("userData", sess.user, {expire: 4000 + Date.now()});
 						// res.status(200).json({
 						// 	userId: sess.user.id,
 						// 	token: token
